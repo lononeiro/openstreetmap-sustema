@@ -23,15 +23,7 @@ map.on('drag', function() {
     map.panInsideBounds(municipioBounds, { animate: false });
 });
 
-const coresReciclagem = {
-    "Eletrônico": "blue",
-    "Orgânico": "green",
-    "Metal": "orange",
-    "Químico": "red",
-    "Papel": "yellow",
-    "Plástico": "purple",
-    "Vidro": "cyan"
-};
+1
  
 
 L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -61,11 +53,7 @@ legend.onAdd = function(map) {
     
     let labels = ['<strong>Tipos de Reciclagem</strong>'];
     
-    for (const tipo in coresReciclagem) {
-        labels.push(
-            `<i style="background:${coresReciclagem[tipo]}; width: 18px; height: 18px; display: inline-block; margin-right: 5px;"></i> ${tipo}`
-        );
-    }
+
     
     div.innerHTML = labels.join('<br>');
     return div;
@@ -237,6 +225,7 @@ document.getElementById('btnAdicionar').addEventListener('click', async function
     const nomeEmpresa = document.getElementById('nomeEmpresa').value;
     const descricao = document.getElementById('descricao').value;
     const tipoColeta = document.getElementById('tipoColeta').value;
+    const cepSwitch = document.getElementById('naoSeiCepSwitch');
     
     if (!nomeEmpresa || !descricao || !tipoColeta || !coordenadasClicadas) {
         alert("Preencha todos os campos corretamente.");
@@ -248,11 +237,17 @@ document.getElementById('btnAdicionar').addEventListener('click', async function
         return;
     }
 
+    let endereco;
+    if(cepSwitch.checked) {
+        endereco = `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
+    } else {
+        endereco = `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
+    }
+
     const novoPonto = {
         nome: nomeEmpresa,
         descricao: descricao,
-        endereco: `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`,
-        cep: cep,
+        endereco: endereco,
         lat: coordenadasClicadas.lat,
         lng: coordenadasClicadas.lng,
         tipo: tipoColeta
@@ -277,3 +272,39 @@ document.getElementById('btnCancelar').addEventListener('click', function() {
 });
 
 document.getElementById('btnPesquisar').addEventListener('click', pesquisarEndereco);
+
+const cepSwitch = document.getElementById('naoSeiCepSwitch');
+const cepInput = document.getElementById('cep');
+
+function gerenciarCEP() {
+    if(cepSwitch.checked) {
+
+
+        cepInput.classList.add('cep-bloqueado');
+        cepInput.value = '';
+        // Previne qualquer interação
+        cepInput.addEventListener('keydown', bloquearEntrada);
+        cepInput.addEventListener('click', bloquearClique);
+        cepInput.ariaPlaceholder("CEP desabilitado.")
+    } else {
+       
+        cepInput.classList.remove('cep-bloqueado');
+        cepInput.removeEventListener('keydown', bloquearEntrada);
+        cepInput.removeEventListener('click', bloquearClique);
+    }
+}
+
+function bloquearEntrada(e) {
+    e.preventDefault();
+    return false;
+}
+
+function bloquearClique(e) {
+    e.preventDefault();
+    cepInput.blur();
+    return false;
+}
+
+// Event listeners
+cepSwitch.addEventListener('change', gerenciarCEP);
+window.addEventListener('load', gerenciarCEP);

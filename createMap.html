@@ -13,15 +13,17 @@
         <!-- Formulário à esquerda -->
         <div class="formulario">
             <form id="formPesquisa">
-
-                <label for="cep">CEP:</label>
-                <input type="text" id="cep" placeholder="Ex: 01001000" pattern="\d{8}" maxlength="8">
-
-                <label class="switch">
-                    <input type="checkbox" id="naoSeiCepSwitch">
-                    <span class="slider"></span>
-                </label>                  
-
+                <h3 class="titulo-cep">CEP:</h3>
+                <div class="formulario-cep">
+                    
+                    <label for="cep"></label>
+                    <label class="switch">
+                        <input type="checkbox" id="naoSeiCepSwitch">
+                        <span class="slider"></span>
+                    </label>                  
+                    <input type="text" id="cep" placeholder="Ex: 01001000" pattern="\d{8}" maxlength="8">                    
+                </div>
+                
                 <label for="estado">Estado:</label>
                 <input type="text" id="estado" placeholder="Ex: SP" required>
 
