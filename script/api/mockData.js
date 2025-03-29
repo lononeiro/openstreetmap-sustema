@@ -1,4 +1,4 @@
-// Simulação de uma API que retorna uma lista de pontos em Resende, RJ
+// Dados simulados da API
 const pontos = [
     {
         nome: "Ponto de Reciclagem Centro",
@@ -42,7 +42,6 @@ const pontos = [
     }
 ];
 
-
 function buscarPontos() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -51,4 +50,4 @@ function buscarPontos() {
     });
 }
 
-export { buscarPontos };
+export { pontos, buscarPontos };

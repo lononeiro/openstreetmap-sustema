@@ -11,9 +11,13 @@ body {
 }
 
 .container {
+
+    margin-top: 50px;
+    margin-bottom: 20;
     display: flex;
     gap: 20px;
-    height: calc(100vh - 40px);
+    height: 860px;;
+    
 }
 
 .formulario {
@@ -61,6 +65,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 #modal {
@@ -234,4 +239,70 @@ input:checked + .slider:before {
 
 .cep-bloqueado::placeholder {
     color: transparent;
+}
+
+
+#map {
+    height: 100%;
+}
+
+.logo {
+    font-size: 24px;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #66b969;
+    padding: 15px 30px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Garante que o header fique sobre tudo */
+}
+
+.titulo {
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.titulo a {
+    color: rgb(21, 46, 7); /* Define a cor do título como branca */
+    text-decoration: none; /* Remove o sublinhado */
+    transition: opacity 0.3s; /* Adiciona a transição de opacidade */
+}
+
+.titulo a:hover {
+    opacity: 0.7; /* Efeito hover igual aos links */
+}
+
+.nav {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centraliza os links */
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav ul li {
+    display: inline;
+}
+
+.nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.nav ul li a:hover {
+    opacity: 0.7;
 }

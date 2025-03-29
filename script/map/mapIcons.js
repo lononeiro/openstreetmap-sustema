@@ -1,4 +1,4 @@
-
+// Configura os ícones e cores para os marcadores
 const coresReciclagem = {
     "Eletrônico": "blue",
     "Orgânico": "green",
@@ -11,7 +11,6 @@ const coresReciclagem = {
 
 const iconesReciclagem = {
     "Eletrônico": {
-        
         iconUrl: "images/laptop-screen.png",
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
         iconSize: [32, 32],
@@ -62,9 +61,6 @@ const iconesReciclagem = {
     }
 };
 
-function criarIcone(tipo) {
+export function criarIcone(tipo) {
     return L.icon(iconesReciclagem[tipo] || iconesReciclagem["Orgânico"]);
 }
-
-
-export {criarIcone};
