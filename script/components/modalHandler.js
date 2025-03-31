@@ -7,10 +7,29 @@ let coordenadasClicadas = null;
 export function initModalEvents() {
     map.on('click', function(e) {
         if (e.originalEvent.ctrlKey) {
+            const cepSwitch = document.getElementById('naoSeiCepSwitch');
             // if (!municipioBounds.contains(e.latlng)) {
             //     alert("Só é permitido adicionar pontos dentro do município!");
             //     return;
             // }
+            if(cepSwitch.checked){
+                const estado = document.getElementById('estado').value;
+                const cidade = document.getElementById('cidade').value;
+                const bairro = document.getElementById('bairro').value;
+                const rua = document.getElementById('rua').value;
+                const numero = document.getElementById('numero').value;
+                
+
+                if (!estado || !cidade || !bairro || !rua || !numero) {
+                    alert("Preencha todos os campos do endereço corretamente.");
+                    return;
+                }
+
+                coordenadasClicadas = e.latlng;
+                document.getElementById('modal').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+
+            }else{
             const estado = document.getElementById('estado').value;
             const cidade = document.getElementById('cidade').value;
             const bairro = document.getElementById('bairro').value;
@@ -22,13 +41,14 @@ export function initModalEvents() {
                 alert("Preencha todos os campos do endereço corretamente.");
                 return;
             }
-            if (cidade.toLowerCase() !== 'resende') {
-                alert("Só são permitidos endereços no município de Resende-RJ");
-                return;
-            }
+            // if (cidade.toLowerCase() !== 'resende') {
+            //     alert("Só são permitidos endereços no município de Resende-RJ");
+            //     return;
+            // }
             coordenadasClicadas = e.latlng;
             document.getElementById('modal').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
+        }
         }
     });
 
@@ -56,9 +76,9 @@ export function initModalEvents() {
 
         let endereco;
         if(cepSwitch.checked) {
-            endereco = `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
-        } else {
             endereco = `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
+        } else {
+            endereco = `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
         }
 
         const novoPonto = {

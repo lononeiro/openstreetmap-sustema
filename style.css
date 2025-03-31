@@ -44,7 +44,7 @@ body {
     border-radius: 4px;
 }
 
-.formulario button {
+.formulario .botao-pesquisar {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -54,7 +54,7 @@ body {
     width: 100%;
 }
 
-.formulario button:hover {
+.formulario .botao-pesquisar :hover {
     background-color: #45a049;
 }
 
@@ -257,8 +257,8 @@ input:checked + .slider:before {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; /* Garante que o header fique sobre tudo */
-}
+    z-index: 10000000000000000000; /* Garante que o header fique sobre tudo */
+}   
 
 .titulo {
     font-size: 22px;
@@ -320,3 +320,29 @@ input:checked + .slider:before {
     height: 40px; /* Tamanho reduzido */
     width: auto; /* Mantém a proporção */
 }
+
+.botao-gerenciar-pontos{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 70%;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    margin-top: 50px;
+    height: 35px;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial;
+    
+
+    transition: opacity 0.3s ease;
+}
+.botao-gerenciar-pontos:hover{
+    opacity: 0.9;
+}
+
