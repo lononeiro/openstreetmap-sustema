@@ -1,6 +1,6 @@
 import { criarIcone } from "../map/mapIcons.js";
 import { municipioBounds, map } from "../map/mapConfig.js";
-import { getPontos } from "../services/apiService.js";
+import { carregarPontosDoLocalStorage, salvarPontosNoLocalStorage } from "../api/mockData.js";
 
 let coordenadasClicadas = null;
 
@@ -8,51 +8,24 @@ export function initModalEvents() {
     map.on('click', function(e) {
         if (e.originalEvent.ctrlKey) {
             const cepSwitch = document.getElementById('naoSeiCepSwitch');
-            // if (!municipioBounds.contains(e.latlng)) {
-            //     alert("Só é permitido adicionar pontos dentro do município!");
-            //     return;
-            // }
-            if(cepSwitch.checked){
-                const estado = document.getElementById('estado').value;
-                const cidade = document.getElementById('cidade').value;
-                const bairro = document.getElementById('bairro').value;
-                const rua = document.getElementById('rua').value;
-                const numero = document.getElementById('numero').value;
-                
-
-                if (!estado || !cidade || !bairro || !rua || !numero) {
-                    alert("Preencha todos os campos do endereço corretamente.");
-                    return;
-                }
-
-                coordenadasClicadas = e.latlng;
-                document.getElementById('modal').style.display = 'block';
-                document.getElementById('overlay').style.display = 'block';
-
-            }else{
             const estado = document.getElementById('estado').value;
             const cidade = document.getElementById('cidade').value;
             const bairro = document.getElementById('bairro').value;
             const rua = document.getElementById('rua').value;
             const numero = document.getElementById('numero').value;
-            const cep = document.getElementById('cep').value;
-
-            if (!estado || !cidade || !bairro || !rua || !numero || !cep) {
+            
+            if (!estado || !cidade || !bairro || !rua || !numero || (!cepSwitch.checked && !document.getElementById('cep').value)) {
                 alert("Preencha todos os campos do endereço corretamente.");
                 return;
             }
-            // if (cidade.toLowerCase() !== 'resende') {
-            //     alert("Só são permitidos endereços no município de Resende-RJ");
-            //     return;
-            // }
+            
             coordenadasClicadas = e.latlng;
             document.getElementById('modal').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
         }
-        }
     });
 
-    document.getElementById('btnAdicionar').addEventListener('click', async function() {
+    document.getElementById('btnAdicionar').addEventListener('click', function() {
         const estado = document.getElementById('estado').value;
         const cidade = document.getElementById('cidade').value;
         const bairro = document.getElementById('bairro').value;
@@ -74,12 +47,9 @@ export function initModalEvents() {
             return;
         }
 
-        let endereco;
-        if(cepSwitch.checked) {
-            endereco = `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
-        } else {
-            endereco = `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
-        }
+        let endereco = cepSwitch.checked 
+            ? `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`
+            : `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
 
         const novoPonto = {
             nome: nomeEmpresa,
@@ -90,9 +60,12 @@ export function initModalEvents() {
             tipo: tipoColeta
         };
 
-        console.log("Dados enviados para o backend:", novoPonto);
+        const pontos = carregarPontosDoLocalStorage();
+        console.log(pontos)
+        pontos.push(novoPonto);
+        console.log(novoPonto)
+        salvarPontosNoLocalStorage(pontos);
         adicionarMarcador(novoPonto);
-
         fecharModal();
         alert("Ponto de reciclagem adicionado com sucesso!");
     });
@@ -111,7 +84,7 @@ function fecharModal() {
 
 export function adicionarMarcador(local) {
     const icone = criarIcone(local.tipo);
-    const marcador = L.marker([local.lat, local.lng], { icon: icone })
+    L.marker([local.lat, local.lng], { icon: icone })
         .addTo(map)
         .bindPopup(`
             <div style="min-width: 200px;">
@@ -122,12 +95,12 @@ export function adicionarMarcador(local) {
                 <p><strong>Tipo:</strong> ${local.tipo}</p>
                 <p><strong>Descrição:</strong> ${local.descricao}</p>
                 <p><strong>Endereço:</strong> ${local.endereco}</p>
-                <div style="text-align: center; margin-top: 10px;">
-
-                </div>
             </div>
-        `);
-    marcador.on('mouseover', function() {
-        this.openPopup();
-    });
+        `)
+        .on('mouseover', function() { this.openPopup(); });
+}
+
+export function carregarMarcadores() {
+    const pontos = carregarPontosDoLocalStorage();
+    pontos.forEach(adicionarMarcador);
 }

@@ -346,3 +346,237 @@ input:checked + .slider:before {
     opacity: 0.9;
 }
 
+/* Estilos gerais para a página de gerenciamento */
+.container-gerenciamento {
+    max-width: 1200px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+}
+
+/* Estilo para o título principal */
+.container-gerenciamento h1 {
+    color: #2E7D32;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4CAF50;
+}
+
+/* Estilo do formulário de edição */
+.form-edicao {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.form-edicao h2 {
+    color: #2E7D32;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Estilo dos campos do formulário */
+.form-edicao label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #424242;
+}
+
+.form-edicao input[type="text"],
+.form-edicao select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-edicao input[type="text"]:focus,
+.form-edicao select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Estilo dos botões do formulário */
+.botoes-form {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.botao-salvar,
+.botao-cancelar {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.botao-salvar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.botao-salvar:hover {
+    background-color: #3d8b40;
+}
+
+.botao-cancelar {
+    background-color: #f5f5f5;
+    color: #424242;
+    border: 1px solid #e0e0e0;
+}
+
+.botao-cancelar:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilo da lista de pontos */
+.lista-pontos {
+    margin-top: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.cabecalho-lista {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr 120px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+.ponto-item {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr 120px;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.ponto-item:hover {
+    background-color: #f9f9f9;
+}
+
+.ponto-item:last-child {
+    border-bottom: none;
+}
+
+.acoes-item {
+    display: flex;
+    gap: 10px;
+}
+
+.botao-acao {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.botao-editar {
+    background-color: #2196F3;
+    color: white;
+}
+
+.botao-editar:hover {
+    background-color: #0b7dda;
+}
+
+.botao-excluir {
+    background-color: #f44336;
+    color: white;
+}
+
+.botao-excluir:hover {
+    background-color: #d32f2f;
+}
+
+.carregando {
+    padding: 30px;
+    text-align: center;
+    color: #757575;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cabecalho-lista,
+    .ponto-item {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    
+    .cabecalho-lista span:nth-child(3),
+    .cabecalho-lista span:nth-child(4),
+    .ponto-item span:nth-child(3) {
+        display: none;
+    }
+    
+    .acoes-item {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        justify-content: flex-end;
+    }
+    
+    .form-edicao {
+        padding: 15px;
+    }
+    
+    .botoes-form {
+        justify-content: center;
+    }
+}
+
+/* Estilos para estados de carregamento */
+.carregando, .nenhum-ponto, .erro {
+    padding: 20px;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+.carregando {
+    color: #666;
+}
+
+.erro {
+    color: #f44336;
+}
+
+.nenhum-ponto {
+    color: #2196F3;
+}
+
+/* Melhorias na responsividade */
+@media (max-width: 768px) {
+    .ponto-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .acoes-item {
+        justify-content: center;
+    }
+}
