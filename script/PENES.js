@@ -51,6 +51,8 @@ function renderizarPontos() {
 }
 
 function adicionarEventosBotoes() {
+
+
     document.querySelectorAll(".botao-editar").forEach(btn => {
         btn.addEventListener("click", function() {
             editarPonto(parseInt(this.getAttribute("data-id")));
@@ -65,64 +67,50 @@ function adicionarEventosBotoes() {
 }
 
 document.addEventListener("DOMContentLoaded", carregarPontos);
-
-
-
 function editarPonto(id) {
-    // 1. Encontra o ponto a ser editado
+    const formEdicao = document.getElementById("form-edicao");
+    const btnCancelar = document.getElementById("btnCancelar");
+    const formEditar = document.getElementById("formEditarPonto");
+
+    // Clona o formulário para remover listeners antigos
+    const novoFormEditar = formEditar.cloneNode(true);
+    formEditar.replaceWith(novoFormEditar);
+
+    // Reatribui o evento ao botão "Cancelar"
+    document.getElementById("btnCancelar").onclick = function() {
+        formEdicao.style.display = "none";
+    };
+
     const ponto = pontosColeta.find(p => p.id === id);
     
     if (ponto) {
-        // 2. Preenche o formulário com os dados atuais
         document.getElementById("editar-id").value = ponto.id;
         document.getElementById("editar-nome").value = ponto.nome;
         document.getElementById("editar-endereco").value = ponto.endereco;
         document.getElementById("editar-tipo").value = ponto.tipo;
         
-        // 3. Mostra o formulário de edição
-        document.getElementById("form-edicao").style.display = "block";
-        
-        // 4. Configura o evento de submit do formulário
-        const formEditar = document.getElementById("formEditarPonto");
-        
-        // Remove event listener antigo para evitar duplicação
-        formEditar.replaceWith(formEditar.cloneNode(true));
-        
-        // Adiciona novo event listener
-        document.getElementById("formEditarPonto").addEventListener("submit", function(e) {
+        formEdicao.style.display = "block";
+
+        novoFormEditar.addEventListener("submit", function(e) {
             e.preventDefault();
             
-            // 5. Obtém os valores editados
-            const id = parseInt(document.getElementById("editar-id").value);
-            const nome = document.getElementById("editar-nome").value;
-            const endereco = document.getElementById("editar-endereco").value;
-            const tipo = document.getElementById("editar-tipo").value;
+            ponto.nome = document.getElementById("editar-nome").value;
+            ponto.endereco = document.getElementById("editar-endereco").value;
+            ponto.tipo = document.getElementById("editar-tipo").value;
             
-            // 6. Atualiza o ponto no array
-            const index = pontosColeta.findIndex(p => p.id === id);
-            if (index !== -1) {
-                pontosColeta[index] = {
-                    ...pontosColeta[index],
-                    nome,
-                    endereco,
-                    tipo
-                };
-                
-                // 7. Salva no localStorage
-                localStorage.setItem('pontosColeta', JSON.stringify(pontosColeta));
-                
-                // 8. Atualiza a exibição
-                renderizarPontos();
-                
-                // 9. Esconde o formulário
-                document.getElementById("form-edicao").style.display = "none";
-                
-                // 10. Feedback para o usuário
-                alert("Ponto atualizado com sucesso!");
-            }
+            salvarPontosNoLocalStorage(pontosColeta);
+            
+            console.log("POST /api/pontos/editar", JSON.stringify(ponto, null, 2));
+            
+            renderizarPontos();
+            formEdicao.style.display = "none";
+            alert("Ponto atualizado com sucesso!");
         });
     }
 }
+
+
+
 function excluirPonto(id) {
     if (confirm("Tem certeza que deseja excluir este ponto?")) {
         pontosColeta = pontosColeta.filter(p => p.id !== id);
