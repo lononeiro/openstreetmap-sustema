@@ -54,15 +54,14 @@ export function initFormEvents() {
 
     function gerenciarCEP() {
         if(cepSwitch.checked) {
+            cepInput.classList.remove('cep-bloqueado');
+            cepInput.removeEventListener('keydown', bloquearEntrada);
+            cepInput.removeEventListener('click', bloquearClique);
+        } else {
             cepInput.classList.add('cep-bloqueado');
             cepInput.value = '';
             cepInput.addEventListener('keydown', bloquearEntrada);
             cepInput.addEventListener('click', bloquearClique);
-            cepInput.setAttribute("placeholder", "CEP desabilitado.");
-        } else {
-            cepInput.classList.remove('cep-bloqueado');
-            cepInput.removeEventListener('keydown', bloquearEntrada);
-            cepInput.removeEventListener('click', bloquearClique);
         }
     }
 

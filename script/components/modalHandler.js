@@ -14,7 +14,7 @@ export function initModalEvents() {
             const rua = document.getElementById('rua').value;
             const numero = document.getElementById('numero').value;
             
-            if (!estado || !cidade || !bairro || !rua || !numero || (!cepSwitch.checked && !document.getElementById('cep').value)) {
+            if (!estado || !cidade || !bairro || !rua || !numero || (cepSwitch.checked && !document.getElementById('cep').value)) {
                 alert("Preencha todos os campos do endereço corretamente.");
                 return;
             }
@@ -48,8 +48,8 @@ export function initModalEvents() {
         }
 
         let endereco = cepSwitch.checked 
-            ? `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`
-            : `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
+            ? `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`
+            : `${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`;
 
         const novoPonto = {
             nome: nomeEmpresa,
