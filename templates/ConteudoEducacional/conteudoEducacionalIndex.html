@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteúdo Educacional</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="header">
+        <header class="header">
+            <a href="/templates/index.html" class="logo-link">
+                <img src="../../images/reciclagem-logo.png" alt="Logo" class="logo">
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/templates/PontosColeta/adicionarPontoDeColeta.html">Pontos de coleta</a></li>
+                    <li><a href="/templates/ConteudoEducacional/conteudoEducacionalIndex.html">Conteúdo educacional</a></li>
+                    <li><a href="#">Empresas</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+            </nav>
+        </header>
+    </header>
+
+    <div class="container-conteudo">
+        
+        <div class="grade-conteudos">
+        
+        </div>
+    </div>
+
+    <script type="module">
+        import { buscarConteudosEducacionais } from '../../script/api/mockDataEdu.js';
+    
+        async function carregarEExibirConteudos() {
+            try {
+                // Busca sempre os dados mais recentes
+                const conteudos = await buscarConteudosEducacionais();
+                renderizarConteudos(conteudos);
+            } catch (error) {
+                console.error('Erro ao carregar conteúdos:', error);
+                exibirMensagemErro();
+            }
+        }
+    
+        function renderizarConteudos(conteudos) {
+            const grade = document.querySelector('.grade-conteudos');
+            grade.innerHTML = '';
+    
+            if(conteudos.length === 0) {
+                grade.innerHTML = `
+                    <div class="sem-conteudo">
+                        <p>Nenhum conteúdo educacional encontrado</p>
+                    </div>
+                `;
+                return;
+            }
+    
+            conteudos.forEach(conteudo => {
+                const card = document.createElement('div');
+                card.className = 'card-conteudo';
+                card.innerHTML = `
+                    <div class="categoria">${conteudo.tipo}</div>
+                    <h3 class="titulo-conteudo">${conteudo.titulo}</h3>
+                    <p class="descricao-conteudo">${conteudo.descricao}</p>
+                    <div class="metadados">
+                        <span class="data">${formatarData(conteudo.dataPublicacao)}</span>
+                        <span class="autor">${conteudo.autor}</span>
+                    </div>
+                    <button class="botao-ver-mais">Ver Conteúdo</button>
+                `;
+                
+                card.querySelector('.botao-ver-mais').addEventListener('click', () => {
+                    abrirDetalhesConteudo(conteudo.id);
+                });
+    
+                grade.appendChild(card);
+            });
+        }
+    
+        function formatarData(dataString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dataString).toLocaleDateString('pt-BR', options);
+        }
+    
+        function abrirDetalhesConteudo(id) {
+            window.location.href = `detalhesConteudo.html?id=${id}`;
+        }
+    
+        function exibirMensagemErro() {
+            const grade = document.querySelector('.grade-conteudos');
+            grade.innerHTML = `
+                <div class="erro-carregamento">
+                    <p>Erro ao carregar conteúdos. Tente recarregar a página.</p>
+                </div>
+            `;
+        }
+    
+        // Carregar conteúdos ao iniciar e ao adicionar novo
+        document.addEventListener('DOMContentLoaded', carregarEExibirConteudos);
+    </script>
+</body>
+</html>

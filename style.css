@@ -1,14 +1,7 @@
+mande completo, 
 
 
-Conversas
- 
-Regulamentos do programa
-Powered by Google
-Última atividade da conta: há 10 horas
-Detalhes
-	
-Pause as notificações para dispositivos móveis enquanto você estiver usando este dispositivo
-Se você quiser pausar as notificações para dispositivos móveis do Chat enquanto estiver usando este dispositivo, deixe o navegador detectar se ele está ativo ou não. Clique em Continuar e depois em Permitir quando você vir uma solicitação do navegador.
+
 
 * {
     margin: 0;
@@ -23,9 +16,10 @@ body {
 }
 
 .container {
-
-    margin-top: 60px;
-    margin-bottom: 20;
+    margin-top: 90px;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
     display: flex;
     gap: 20px;
     height: 853px;
@@ -468,6 +462,7 @@ input:checked + .slider:before {
 .botao-salvar {
     background-color: #4CAF50;
     color: white;
+    width: 70%;
 }
 
 .botao-salvar:hover {
@@ -627,8 +622,9 @@ input:checked + .slider:before {
 }
 
 .titulo-index{
-    position: relative;
+    position:relative;
     font-size: 100px;
+    margin-top: 30%;
 }
 
 .btn-adicionar-conteuto-educational {
@@ -636,3 +632,288 @@ input:checked + .slider:before {
     margin: 1rem;
     text-align: center;
 }
+
+.limnk{
+    margin-top: 10%;
+    position: relative;
+}
+
+hover {
+    opacity: 0.9;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #2E7D32;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select,
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.botao-cancelar {
+    background-color: #d0d0d0;
+    color: rgb(47, 47, 47);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 50%;
+    transition: opacity 0.3s;
+}
+
+.botao-cancelar:hover {
+    opacity: 0.9;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+.titulo {
+    color: #2E7D32;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4CAF50;
+    width: 100%;
+}
+
+
+.formulario-edu {
+    display: center;
+    flex-direction: column;
+    
+    flex: 1;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+    margin: auto
+}
+
+.formulario-edu.botao-cancelar{
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-top: 10px;
+
+}
+
+.formulario-edu.botao-salvar{
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container Principal */
+.container-conteudo {
+    max-width: 1200px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+}
+
+.titulo-principal {
+    color: #2E7D32;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+/* Grade de Conteúdos */
+.grade-conteudos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Cards de Conteúdo */
+.card-conteudo {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.card-conteudo:hover {
+    transform: translateY(-5px);
+}
+
+.categoria {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #4CAF50;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.titulo-conteudo {
+    color: #2E7D32;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.descricao-conteudo {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Botões */
+.botao-ver-mais {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.botao-ver-mais:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .grade-conteudos {
+        grid-template-columns: 1fr;
+    }
+    
+    .titulo-principal {
+        font-size: 2rem;
+    }
+}
+/* Estilos para metadados */
+.metadados {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.data::before {
+    content: "📅 ";
+}
+
+.autor::before {
+    content: "👤 ";
+}
+
+/* Melhorias nos cards */
+.card-conteudo {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.categoria {
+    background-color: #2E7D32;
+    font-size: 0.8em;
+    padding: 3px 10px;
+    border-radius: 3px;
+}
+
+/* Efeito de hover aprimorado */
+.card-conteudo:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .metadados {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* Adicione ao CSS */
+.sem-conteudo {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.2em;
+    grid-column: 1 / -1;
+}
+
+.erro-carregamento {
+    text-align: center;
+    padding: 40px;
+    color: #e74c3c;
+    font-size: 1.2em;
+    grid-column: 1 / -1;
+}
+
