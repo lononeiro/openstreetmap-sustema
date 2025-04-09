@@ -42,10 +42,10 @@ export function initModalEvents() {
             return;
         }
 
-        if (cidade.toLowerCase() !== 'resende') {
-            alert("Só são permitidos endereços no município de Resende-RJ");
-            return;
-        }
+        // if (cidade.toLowerCase() !== 'resende') {
+        //     alert("Só são permitidos endereços no município de Resende-RJ");
+        //     return;
+        // }
 
         let endereco = cepSwitch.checked 
             ? `${cep}, ${rua}, ${numero}, ${bairro}, ${cidade}, ${estado}, Brasil`
