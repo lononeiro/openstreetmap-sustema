@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalhes do Conteúdo</title>
   <link rel="stylesheet" href="../../style.css">
-  <style>
-    iframe#conteudo-video {
-      width: 100%;
-      height: 415px;
-      border: 0;
-    }
-  </style>
 </head>
 <body>
   <header class="header"> 
@@ -29,88 +22,74 @@
   </header>
 
   <div class="container-detalhes">
-    <a href="conteudoEducacionalIndex.html" class="botao-voltar">← Voltar</a>
+    <a href="conteudoEducacionalIndex.html" class="botao-voltar">Voltar</a>
     
     <div class="cabecalho-conteudo">
       <span class="categoria-detalhes">Artigo</span>
-      <h1 class="titulo-detalhes">Como Reciclar Agulhas</h1>
+      <h1 class="titulo-detalhes">Título do Conteúdo</h1>
       <div class="metadados-detalhes">
-        <span class="data-detalhes">Publicado em: 14/03/2024</span>
-        <span class="autor-detalhes">Autor: Secretaria do Meio Ambiente</span>
+        <span class="data-detalhes">Publicado em: </span>
+        <span class="autor-detalhes">Autor: </span>
       </div>
     </div>
 
     <div class="corpo-conteudo">
-      <div class="descricao-detalhes">
-        Guia completo para descarte seguro de materiais perfurocortantes
-      </div>
+      <div class="descricao-detalhes"></div>
 
       <div class="conteudo-completo">
-        <div id="conteudo-texto">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </div>
+        <div id="conteudo-texto" class="conteudo-texto"></div>
         
-        <iframe id="conteudo-video"
+        <iframe id="conteudo-video" class="video-embed"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-        </iframe>
+                allowfullscreen></iframe>
       </div>
+    </div>
+    
+    <div class="botoes-acoes">
+      <button class="botao-editar-conteudo">Editar</button>
+      <button class="botao-excluir-conteudo">Excluir</button>
+    </div>
+  </div>
+  
+  <!-- Modal para edição -->
+  <div class="modal" id="modalEditar">
+    <div class="modal-conteudo">
+      <span class="modal-close" id="fecharModalEditar">&times;</span>
+      <h2>Editar Conteúdo</h2>
+      <form id="formEditar">
+          <div class="form-group">
+              <label for="editarTitulo">Título:</label>
+              <input type="text" id="editarTitulo" name="editarTitulo" required>
+          </div>
+          <div class="form-group">
+              <label for="editarDescricao">Descrição:</label>
+              <textarea id="editarDescricao" name="editarDescricao" required></textarea>
+          </div>
+          <div class="form-group">
+              <label for="editarTipo">Tipo:</label>
+              <select id="editarTipo" name="editarTipo" required>
+                  <option value="Video">Vídeo</option>
+                  <option value="Artigo">Artigo</option>
+              </select>
+          </div>
+          <div class="form-group" id="grupoEditarConteudo">
+              <label for="editarConteudo" id="labelEditarConteudo">URL do Vídeo:</label>
+              <input type="url" id="editarConteudoUrl" name="editarConteudoUrl" pattern="https?://.*">
+              <textarea id="editarConteudoTexto" name="editarConteudoTexto" class="hidden" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+              <label for="editarImagem">Imagem (para o card):</label>
+              <input type="file" id="editarImagem" name="editarImagem" accept="image/*">
+          </div>
+          <div class="button-group">
+              <button type="submit" class="botao-salvar-edu">Salvar Alterações</button>
+              <button type="button" id="cancelarEdicao" class="botao-cancelar-edu">Cancelar</button>
+          </div>
+      </form>
     </div>
   </div>
 
-  <script>
-    function getEmbedURL(url) {
-      if (url.includes("youtu.be/")) {
-        // Extrai o ID a partir do link youtu.be/
-        const videoId = url.split("youtu.be/")[1].split('?')[0];
-        return `https://www.youtube.com/embed/${videoId}`;
-      } else if (url.includes("youtube.com/watch?v=")) {
-        // Obtém o parâmetro v da URL
-        const urlObj = new URL(url);
-        const videoId = urlObj.searchParams.get("v");
-        return `https://www.youtube.com/embed/${videoId}`;
-      }
-      return url;
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const conteudoId = urlParams.get('id');
-
-    const conteudos = JSON.parse(localStorage.getItem("conteudosEducacionais")) || [];
-    const conteudo = conteudos.find(c => String(c.id) === String(conteudoId));
-
-    if (conteudo) {
-      document.title = conteudo.titulo || 'Detalhes do Conteúdo';
-      document.querySelector('.titulo-detalhes').textContent = conteudo.titulo || '';
-      document.querySelector('.categoria-detalhes').textContent = conteudo.tipo || '';
-      document.querySelector('.data-detalhes').textContent = `Publicado em: ${conteudo.dataPublicacao ? new Date(conteudo.dataPublicacao).toLocaleDateString() : ''}`;
-      document.querySelector('.autor-detalhes').textContent = `Autor: ${conteudo.autor || ''}`;
-      document.querySelector('.descricao-detalhes').textContent = conteudo.descricao || '';
-
-      const textoDiv = document.getElementById('conteudo-texto');
-      const videoIframe = document.getElementById('conteudo-video');
-
-      const tipoLower = (conteudo.tipo || '').toLowerCase();
-      if (tipoLower === 'vídeo' || tipoLower === 'video') {
-        textoDiv.style.display = 'none';
-        // Define o src do iframe utilizando a função getEmbedURL para converter o link, se necessário.
-        videoIframe.src = getEmbedURL(conteudo.conteudo);
-        videoIframe.style.display = 'block';
-      } else {
-        videoIframe.style.display = 'none';
-        textoDiv.textContent = conteudo.conteudo;
-        textoDiv.style.display = 'block';
-      }
-    } else {
-      document.querySelector('.container-detalhes').innerHTML = `
-        <div class="erro-conteudo">
-          <h2>Conteúdo não encontrado</h2>
-          <p>O conteúdo solicitado não está disponível.</p>
-          <a href="conteudoEducacionalIndex.html" class="botao-voltar">Voltar para a lista</a>
-        </div>
-      `;
-    }
-  </script>
+  <script src="../../script/conteudoEducacional/detalhes.js" type="module"></script>
 </body>
 </html>
