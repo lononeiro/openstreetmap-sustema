@@ -1,8 +1,7 @@
 import { map, municipioBounds } from "./mapConfig.js";
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
-    attribution: '© OpenStreetMap contributors, © CARTO',
-    subdomains: 'abcd'
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
 // map.on('drag', () => {
